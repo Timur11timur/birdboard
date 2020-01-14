@@ -20,8 +20,8 @@ class ProjectsTest extends TestCase
             'description' => $this->faker->paragraph,
         ];
 
-        $this->post('/project', $attributes);
-        $this->assertDatabaseHas('project', $attributes);
+        $this->post('/projects', $attributes);
+        $this->assertDatabaseHas('projects', $attributes);
     }
 
     /**
@@ -31,8 +31,8 @@ class ProjectsTest extends TestCase
      */
     public function testExample()
     {
-        //$response = $this->get('/');
+        $response = $this->get('/');
 
-        //$response->assertStatus(200);
+        $response->assertStatus(200);
     }
 }
