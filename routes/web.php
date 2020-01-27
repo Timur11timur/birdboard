@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/projects', function () {
-    App\Project::create(request(['title', 'description']));
-});
+Route::get('/projects', 'ProjectsController@index');
+
+Route::get('/projects/{project}', 'ProjectsController@show');
+
+Route::post('/projects', 'ProjectsController@store');
