@@ -53,6 +53,13 @@ class ProjectsTest extends TestCase
         $this->post('/projects', $attributes)->assertSessionHasErrors('description');
     }
 
+    public function testA_project_requires_an_owner()
+    {
+        $attributes = factory('App\Project')->raw();
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
+
     public function testA_user_can_view_a_project()
     {
         $this->withoutExceptionHandling();
@@ -61,4 +68,5 @@ class ProjectsTest extends TestCase
 
         $this->get($project->path())->assertSee($project->title)->assertSee($project->description);
     }
+
 }
