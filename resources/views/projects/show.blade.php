@@ -9,15 +9,11 @@
         <div class="col-lg-8">
             <div class="mb-3">
                 <h2 class="text-lg font-weight-normal ml-2 text-muted" style="font-size: 1.5rem;">Tasks</h2>
-                <div class="card border-0 shadow p-2 d-flex align-items-stretch rounded-lg mb-2">
-                    <h3 class="card-title ml-n2 pl-2 border-info border-left border-1 py-2 mb-0" style="font-size: 1.5rem;">fdsfdsfds</h3>
-                </div>
-                <div class="card border-0 shadow p-2 d-flex align-items-stretch rounded-lg mb-2">
-                    <h3 class="card-title ml-n2 pl-2 border-info border-left border-1 py-2 mb-0" style="font-size: 1.5rem;">fdsfdsfds</h3>
-                </div>
-                <div class="card border-0 shadow p-2 d-flex align-items-stretch rounded-lg mb-2">
-                    <h3 class="card-title ml-n2 pl-2 border-info border-left border-1 py-2 mb-0" style="font-size: 1.5rem;">fdsfdsfds</h3>
-                </div>
+                @foreach($project->tasks as $task)
+                    <div class="card border-0 shadow p-2 d-flex align-items-stretch rounded-lg mb-2">
+                        <h3 class="card-title ml-n2 pl-2 border-info border-left border-1 py-2 mb-0" style="font-size: 1.5rem;">{{ $task->body }}</h3>
+                    </div>
+                @endforeach
             </div>
             <div class="mb-3">
                 <h2 class="text-lg font-weight-normal ml-2 text-muted" style="font-size: 1.5rem;">General Notes</h2>

@@ -11,6 +11,18 @@ class ManageProjectsTest extends TestCase
     use WithFaker,
         RefreshDatabase;
 
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+
     public function testGuests_can_not_manage_projects()
     {
         $project = factory('App\Project')->create();
@@ -36,21 +48,9 @@ class ManageProjectsTest extends TestCase
 
         $this->post('/projects', $attributes)->assertRedirect('/projects');
 
-        //$this->assertDatabaseHas('projects', $attributes);
+        $this->assertDatabaseHas('projects', $attributes);
 
-        //$this->get('/projects')->assertSee($attributes['title']);
-    }
-
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->get('/projects')->assertSee($attributes['title']);
     }
 
     public function testA_project_requires_a_title()
@@ -73,18 +73,18 @@ class ManageProjectsTest extends TestCase
 
     public function testA_user_can_view_their_project()
     {
-        $this->be(factory('App\User')->create());
+        $this->actingAs(factory('App\User')->create());
 
         $this->withoutExceptionHandling();
 
         $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
 
-        $this->get($project->path())->assertSee($project->title)->assertSee($project->description);
+        $this->get($project->path())->assertSee($project->title)->assertSee(substr($project->description, 0, 50));
     }
 
     public function testAn_authenticated_user_cannot_the_projects_of_others()
     {
-        $this->be(factory('App\User')->create());
+        $this->actingAs(factory('App\User')->create());
 
         $project = factory('App\Project')->create();
 
