@@ -14,6 +14,10 @@
                         <h3 class="card-title ml-n2 pl-2 border-info border-left border-1 py-2 mb-0" style="font-size: 1.5rem;">{{ $task->body }}</h3>
                     </div>
                 @endforeach
+                <form action="{{ $project->path() . '/tasks' }}" method="POST">
+                    @csrf
+                    <input placeholder="Add a new task..." class="form-control" type="text" name="body">
+                </form>
             </div>
             <div class="mb-3">
                 <h2 class="text-lg font-weight-normal ml-2 text-muted" style="font-size: 1.5rem;">General Notes</h2>

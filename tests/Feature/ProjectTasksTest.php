@@ -7,9 +7,27 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ProlectTasksTest extends TestCase
+class ProjectTasksTest extends TestCase
 {
    use RefreshDatabase;
+
+    public function testGuests_can_not_add_tasks_to_projects()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->post($project->path() . '/tasks')->assertRedirect('login');
+    }
+
+    public function testOnly_the_owner_of_the_project_can_add_tasks()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->signIn();
+
+        $this->post($project->path() . '/tasks', ['body' => 'Test task'])->assertStatus(403);
+
+        $this->assertDatabaseMissing('tasks', ['body' => 'Test task']);
+    }
 
     public function testA_project_can_have_tasks()
     {
