@@ -8,7 +8,7 @@
     <main class="d-flex row">
         @forelse ($projects as $project)
             <div class="col-lg-4 pb-4 d-flex align-items-stretch">
-                @include('projects.card')
+                @include('projects.layouts.card')
             </div>
         @empty
             <div>No projects yet.</div>

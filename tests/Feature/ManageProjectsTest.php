@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -46,7 +47,11 @@ class ManageProjectsTest extends TestCase
             'description' => $this->faker->paragraph,
         ];
 
-        $this->post('/projects', $attributes)->assertRedirect('/projects');
+        $response = $this->post('/projects', $attributes);
+
+        $projects = Project::where($attributes)->first();
+
+        $response->assertRedirect($projects->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
@@ -82,11 +87,11 @@ class ManageProjectsTest extends TestCase
         $this->get($project->path())->assertSee($project->title)->assertSee(substr($project->description, 0, 50));
     }
 
-    public function testAn_authenticated_user_cannot_the_projects_of_others()
+    public function testAn_authenticated_user_cannot_see_the_projects_of_others()
     {
-        $this->actingAs(factory('App\User')->create());
-
         $project = factory('App\Project')->create();
+
+        $this->actingAs(factory('App\User')->create());
 
         $this->get($project->path())->assertStatus(403);
     }
