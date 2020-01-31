@@ -8,6 +8,8 @@ class Task extends Model
 {
     protected $guarded =[];
 
+    protected $touches = ['project'];
+
     public function path()
     {
         return "/projects/{$this->project->id}/tasks/{$this->id}";
