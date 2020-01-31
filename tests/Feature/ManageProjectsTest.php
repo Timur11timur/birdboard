@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Project;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -44,18 +45,37 @@ class ManageProjectsTest extends TestCase
 
         $attributes = [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
+            'notes' => 'General notes here.'
         ];
 
         $response = $this->post('/projects', $attributes);
 
-        $projects = Project::where($attributes)->first();
+        $project = Project::where($attributes)->first();
 
-        $response->assertRedirect($projects->path());
+        $response->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+            ->assertSee($attributes['title'])
+            ->assertSee($attributes['description'])
+            ->assertSee($attributes['notes']);
+    }
+
+    public function testA_user_can_update_a_project()
+    {
+        $user = factory(User::class)->create();
+
+        $this->signIn($user);
+
+        $project = factory(Project::class)->create(['owner_id' => $user->id]);
+
+        $this->patch($project->path(), [
+            'notes' => 'Changed'
+        ])->assertRedirect($project->path());
+
+        $this->assertDatabaseHas('projects', ['notes' => 'Changed']);
     }
 
     public function testA_project_requires_a_title()
@@ -94,5 +114,14 @@ class ManageProjectsTest extends TestCase
         $this->actingAs(factory('App\User')->create());
 
         $this->get($project->path())->assertStatus(403);
+    }
+
+    public function testAn_authenticated_user_cannot_update_the_projects_of_others()
+    {
+        $project = factory('App\Project')->create();
+
+        $this->signIn();
+
+        $this->patch($project->path(), [])->assertStatus(403);
     }
 }

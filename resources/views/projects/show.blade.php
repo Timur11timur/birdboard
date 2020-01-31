@@ -29,7 +29,12 @@
             </div>
             <div class="mb-3">
                 <h2 class="text-lg font-weight-normal ml-2 text-muted" style="font-size: 1.5rem;">General Notes</h2>
-                <textarea class="card border-0 shadow rounded-lg mb-2 py-2 px4 d-flex col" rows="6">dfsfdsfsadas</textarea>
+                <form method="POST" action=" {{ $project->path() }}">
+                    @csrf
+                    @method('PATCH')
+                    <textarea class="card border-0 shadow rounded-lg mb-2 py-2 px4 d-flex col" rows="6" name="notes">{{ $project->notes }}</textarea>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
             </div>
         </div>
         <div class="col-lg-4">
