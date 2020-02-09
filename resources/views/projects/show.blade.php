@@ -3,7 +3,7 @@
 @section('content')
     <header class="d-flex align-items-center mb-4">
         <p class="text-secondary mb-0 mr-4" style="font-size: 1rem;"><a href="{{ route('projects') }}" class="text-decoration-none">My Project</a> / {{ $project->title }}</p>
-        <a href="{{ route('project.create') }}" class="btn btn-info text-white">Add Project</a>
+        <a href="{{ $project->path()  . "/edit" }}" class="btn btn-info text-white">Edit Project</a>
     </header>
     <main class="d-flex row">
         <div class="col-lg-8">
