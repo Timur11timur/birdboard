@@ -35,6 +35,16 @@
                     <textarea class="card border-0 shadow rounded-lg mb-2 py-2 px4 d-flex col" rows="6" name="notes">{{ $project->notes }}</textarea>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
+
+                <div class="mt-3">
+                    @if ($errors->any())
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
         <div class="col-lg-4">
