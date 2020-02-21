@@ -15,8 +15,21 @@ class ActivityFeedTest extends TestCase
     /** @test */
     public function creating_a_project_generates_activity()
     {
-        $project = ProjectFactory::create();
+        $project = factory(Project::class)->create();
 
-         $this->assertCount(1, $project->activity);
+        $this->assertCount(1, $project->activity);
+
+        $this->assertEquals('created', $project->activity[0]->description);
+    }
+
+    /** @test */
+    public function updating_a_project_generates_activity()
+    {
+        $project = factory(Project::class)->create();
+
+        $project->update(['title' => 'Changed']);
+
+        $this->assertCount(2, $project->activity);
+        $this->assertEquals('updated', $project->activity->last()->description);
     }
 }
