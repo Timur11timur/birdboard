@@ -10,10 +10,11 @@ $factory->define(Task::class, function (Faker $faker) {
     return [
         'body' => $faker->sentence,
         'project_id' => function () {
-        if (Project::count() == 0) {
-            return factory(Project::class)->create()->id;
-        }
-        return Project::inRandomOrder()->first()->id;
-    }
+            if (Project::count() == 0) {
+                return factory(Project::class)->create()->id;
+            }
+            return Project::inRandomOrder()->first()->id;
+        },
+        'completed' => false
     ];
 });
