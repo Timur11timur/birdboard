@@ -49,6 +49,8 @@
         </div>
         <div class="col-lg-4">
             @include('projects.layouts.card')
+
+            @include('projects.layouts.activity')
         </div>
     </main>
 @endsection
