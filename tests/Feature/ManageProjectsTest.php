@@ -13,18 +13,6 @@ class ManageProjectsTest extends TestCase
     use WithFaker,
         RefreshDatabase;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
     public function testGuests_can_not_manage_projects()
     {
         $project = factory('App\Project')->create();

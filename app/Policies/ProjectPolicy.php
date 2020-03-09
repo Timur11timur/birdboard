@@ -12,6 +12,6 @@ class ProjectPolicy
 
     public function update(User $user, Project $project)
     {
-        return ($user->id == $project->owner->id) ? true : false;
+        return (($user->id == $project->owner->id) || ($project->members->contains($user))) ? true : false;
     }
 }
