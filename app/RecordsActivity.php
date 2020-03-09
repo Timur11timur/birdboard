@@ -46,7 +46,7 @@ trait RecordsActivity
 
     protected static function recordableEvents()
     {
-        return static::$recordableEvents ?? ['created', 'updated', 'deleted'];
+        return static::$recordableEvents ?? ['created', 'updated' ];
     }
 
     protected function activityDescription($description)
