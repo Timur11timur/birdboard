@@ -1,9 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <header class="d-flex align-items-center mb-4">
+    <header class="d-flex justify-content-between align-items-center mb-4">
         <p class="text-secondary mb-0 mr-4" style="font-size: 1rem;"><a href="{{ '/projects' }}" class="text-decoration-none">My Project</a> / {{ $project->title }}</p>
-        <a href="{{ $project->path()  . "/edit" }}" class="btn btn-info text-white">Edit Project</a>
+        <div>
+            @foreach($project->members as $member)
+                <img src="{{ gravatar_url($member->email) }}" alt="{{ $member->name }}'s avatar" class="rounded-circle">
+            @endforeach
+            <img src="{{ gravatar_url($project->owner->email) }}" alt="{{ $project->owner->name }}'s avatar" class="rounded-circle">
+            <a href="{{ $project->path()  . "/edit" }}" class="btn btn-info text-white ml-2">Edit Project</a>
+        </div>
     </header>
     <main class="d-flex row">
         <div class="col-lg-8">
@@ -14,7 +20,6 @@
                         <form action="{{ $task->path() }}" method="POST">
                             @method('PATCH')
                             @csrf
-{{--                            <h3 class="card-title ml-n2 pl-2 border-info border-left border-1 py-2 mb-0" style="font-size: 1.5rem;">{{ $task->body }}</h3>--}}
                             <div class="d-flex align-items-center mr-2">
                                 <input type="text" class="form-control border-0  {{ $task->completed ? 'text-secondary': '' }}" value="{{ $task->body }}" name="body">
                                 <input type="checkbox" name="completed" onchange="this.form.submit()" {{ $task->completed ? 'checked': '' }}>
