@@ -10,6 +10,7 @@ $factory->define(Project::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(4),
         'description' => $faker->sentence(4),
+        'notes' => 'Foobar nootes',
         'owner_id' => function () {
             if (rand(0, 1)) {
                 if (User::count() != 0) {
