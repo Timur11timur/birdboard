@@ -11364,3 +11364,15 @@ a.text-dark:focus {
   border-width: 0.5rem !important;
 }
 
+.theme-dark {
+  background-color: #1b1e21;
+}
+
+.theme-orange {
+  background-color: orange;
+}
+
+#navbarSupportedContent div div button:focus {
+  outline: none !important;
+}
+
