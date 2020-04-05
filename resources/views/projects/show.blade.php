@@ -21,7 +21,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="d-flex align-items-center mr-2">
-                                <input type="text" class="form-control border-0  {{ $task->completed ? 'text-secondary': '' }}" value="{{ $task->body }}" name="body">
+                                <input type="text" class="form-control border-0 {{ $task->completed ? 'text-secondary': '' }}"  {{ $task->completed ? 'style=text-decoration:line-through;': '' }} value="{{ $task->body }}" name="body">
                                 <input type="checkbox" name="completed" onchange="this.form.submit()" {{ $task->completed ? 'checked': '' }}>
                             </div>
                         </form>

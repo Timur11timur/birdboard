@@ -77,12 +77,17 @@
 
         methods: {
             addTask() {
-                this.form.tasks.push({ value: ''})
+                this.form.tasks.push({ body: ''})
             },
 
             async submit() {
+                let formData = {};
+                Object.assign(formData, this.form);
+                if (! this.form.tasks[0].body) {
+                    delete formData.tasks;
+                }
                 try {
-                    let response = await axios.post('/projects', this.form);
+                    let response = await axios.post('/projects', formData);
                     location = response.data.message;
                 } catch (error) {
                     this.errors = error.response.data.errors;
