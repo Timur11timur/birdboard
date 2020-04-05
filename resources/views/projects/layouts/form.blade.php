@@ -1,7 +1,7 @@
 
     <div class="form-group">
         <label for="title" class="label">Title</label>
-        <input required type="text" class="form-control" name="title" id="title" value="{{ $project->title }}" >
+        <input required type="text" class="form-control" name="title" id="title" value="{{ $project->title }}">
     </div>
 
     <div class="form-group">
