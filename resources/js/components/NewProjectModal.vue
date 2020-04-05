@@ -37,7 +37,7 @@
                                class="form-control mb-2"
                                v-for="task in form.tasks"
                                placeholder="Task 1"
-                               v-model="task.value">
+                               v-model="task.body">
                     </div>
                     <div class="form-group d-flex align-items-center" @click="addTask()" style="cursor: pointer;">
                         <i href="#" class="fa fa-plus-circle mr-2 text-secondary" style="font-size: 1.5rem;"></i>
@@ -65,7 +65,7 @@
                     title: '',
                     description: '',
                     tasks: [
-                        { value: ''},
+                        { body: ''},
                     ]
                 },
 
